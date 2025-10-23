@@ -16,3 +16,8 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+.box {
+  background: #ffffff;
+  position: relative;
+}
