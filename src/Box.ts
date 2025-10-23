@@ -1,8 +1,10 @@
+import type BoxManager from "./BoxManager";
 import { BODY } from "./constants";
 
 export default class Box {
   div: HTMLDivElement;
 
+  manager: BoxManager;
   width: number;
   height: number;
   gravityScale: number;
@@ -12,11 +14,13 @@ export default class Box {
   gravity: number = 0;
 
   constructor(
+    manager: BoxManager,
     width: number,
     height: number,
     gravityScale: number,
     color: string
   ) {
+    this.manager = manager;
     this.width = width;
     this.height = height;
     this.gravityScale = gravityScale;
@@ -39,7 +43,7 @@ export default class Box {
   }
 
   physics() {
-    this.gravity -= this.gravityScale;
+    this.gravity -= this.gravityScale * this.manager.delta;
     this.y -= this.gravity;
   }
 }
