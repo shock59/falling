@@ -13,7 +13,12 @@ class Box {
   y: number;
   gravity: number = 0;
 
-  constructor(width: number, height: number, gravityScale: number) {
+  constructor(
+    width: number,
+    height: number,
+    gravityScale: number,
+    color: string
+  ) {
     this.width = width;
     this.height = height;
     this.gravityScale = gravityScale;
@@ -25,6 +30,7 @@ class Box {
     this.div.classList.add("box");
     this.div.style.width = `${this.width}px`;
     this.div.style.height = `${this.height}px`;
+    this.div.style.backgroundColor = color;
     this.animate();
     BODY.appendChild(this.div);
   }
@@ -46,5 +52,5 @@ function animate(box: Box) {
   requestAnimationFrame(() => animate(box));
 }
 
-const box = new Box(200, 50, 0.3);
+const box = new Box(200, 50, 0.3, "magenta");
 animate(box);
