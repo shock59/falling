@@ -1,5 +1,4 @@
 import type BoxManager from "./BoxManager";
-import { BODY } from "./constants";
 
 export default class Box {
   div: HTMLDivElement;
@@ -36,7 +35,8 @@ export default class Box {
     this.div.style.height = `${this.height}px`;
     this.div.style.backgroundColor = color;
     this.animate();
-    BODY.appendChild(this.div);
+    const body = document.querySelector<HTMLDivElement>("body")!;
+    body.appendChild(this.div);
   }
 
   animate() {
