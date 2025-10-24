@@ -19,6 +19,8 @@ export default class BoxManager {
     this.heightDrawRatio = 1;
     this.lastFrameTime = Date.now();
     this.delta = 0;
+
+    window.addEventListener("resize", this.updateDrawRatios);
     this.onFrame();
   }
 
@@ -29,7 +31,8 @@ export default class BoxManager {
 
     this.updateDrawRatios();
     for (const box of this.boxes) {
-      if (box.gravityScale != 0) box.physics();
+      if (box.gravityScale == 0) continue;
+      box.physics();
       box.animate();
     }
 
@@ -68,6 +71,7 @@ export default class BoxManager {
   updateDrawRatios() {
     this.widthDrawRatio = window.innerWidth / this.stageWidth;
     this.heightDrawRatio = window.innerHeight / this.stageHeight;
+    for (const box of this.boxes) box.fullAnimate();
   }
 
   addBox(...parameters: DropFirst<ConstructorParameters<typeof Box>>) {

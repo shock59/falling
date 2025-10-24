@@ -32,20 +32,24 @@ export default class Box {
     this.div = document.createElement("div");
     this.div.classList.add("box");
     this.div.style.backgroundColor = color;
-    this.animate();
+    this.fullAnimate();
     const body = document.querySelector<HTMLDivElement>("body")!;
     body.appendChild(this.div);
   }
 
   animate() {
-    this.div.style.width = `${this.width * this.manager.widthDrawRatio}px`;
-    this.div.style.height = `${this.height * this.manager.heightDrawRatio}px`;
     this.div.style.left = `${
       (this.x - this.width / 2) * this.manager.widthDrawRatio
     }px`;
     this.div.style.top = `${
       (this.y - this.height / 2) * this.manager.heightDrawRatio
     }px`;
+  }
+
+  fullAnimate() {
+    this.div.style.width = `${this.width * this.manager.widthDrawRatio}px`;
+    this.div.style.height = `${this.height * this.manager.heightDrawRatio}px`;
+    this.animate();
   }
 
   physics(floor: Box | undefined = undefined): void {
