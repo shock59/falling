@@ -13,9 +13,12 @@ export default class BoxManager {
   delta: number;
   lastFrameTime: number;
 
-  constructor() {
-    this.stageWidth = window.innerWidth;
-    this.stageHeight = window.innerHeight;
+  constructor(
+    stageWidth: number | undefined = undefined,
+    stageHeight: number | undefined = undefined
+  ) {
+    this.stageWidth = stageWidth ?? window.innerWidth;
+    this.stageHeight = stageHeight ?? window.innerHeight;
     this.lastFrameTime = Date.now();
     this.delta = 0;
 
