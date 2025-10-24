@@ -57,11 +57,12 @@ export default class BoxManager {
 
       if (boxBottomY < otherTopY || boxBottomY >= otherBottomY) continue;
       if (
-        (boxXCorners[0] < otherXCorners[0] &&
-          boxXCorners[1] > otherXCorners[0]) ||
-        (boxXCorners[0] < otherXCorners[1] &&
-          boxXCorners[1] > otherXCorners[1]) ||
-        (boxXCorners[0] > otherXCorners[0] && boxXCorners[1] < otherXCorners[1])
+        (boxXCorners[0] <= otherXCorners[0] &&
+          boxXCorners[1] >= otherXCorners[0]) ||
+        (boxXCorners[0] <= otherXCorners[1] &&
+          boxXCorners[1] >= otherXCorners[1]) ||
+        (boxXCorners[0] >= otherXCorners[0] &&
+          boxXCorners[1] < otherXCorners[1])
       ) {
         return other;
       }
