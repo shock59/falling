@@ -5,7 +5,9 @@ type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;
 export default class BoxManager {
   stageWidth: number;
   stageHeight: number;
-  drawRatio: number;
+  drawRatio!: number;
+  leftOffset!: number;
+  topOffset!: number;
 
   boxes: Box[] = [];
   delta: number;
@@ -14,11 +16,11 @@ export default class BoxManager {
   constructor() {
     this.stageWidth = window.innerWidth;
     this.stageHeight = window.innerHeight;
-    this.drawRatio = 1;
     this.lastFrameTime = Date.now();
     this.delta = 0;
 
-    window.addEventListener("resize", this.updateDrawRatios);
+    this.updateDrawRatios();
+    window.addEventListener("resize", () => this.updateDrawRatios());
     this.onFrame();
   }
 
@@ -27,7 +29,6 @@ export default class BoxManager {
     this.delta = now - this.lastFrameTime;
     this.lastFrameTime = now;
 
-    this.updateDrawRatios();
     for (const box of this.boxes) {
       if (box.gravityScale == 0) continue;
       box.physics();
@@ -71,18 +72,22 @@ export default class BoxManager {
     const heightRatio = window.innerHeight / this.stageHeight;
     this.drawRatio = Math.min(widthRatio, heightRatio);
 
+    const backgroundWidth =
+      this.drawRatio == widthRatio
+        ? window.innerWidth
+        : window.innerHeight * (this.stageWidth / this.stageHeight);
+    this.leftOffset = (window.innerWidth - backgroundWidth) / 2;
+    const backgroundHeight =
+      this.drawRatio == widthRatio
+        ? window.innerWidth * (this.stageHeight / this.stageWidth)
+        : window.innerHeight;
+    this.topOffset = (window.innerHeight - backgroundHeight) / 2;
+
     const background: HTMLDivElement = document.querySelector("#background")!;
-    if (this.drawRatio == widthRatio) {
-      background.style.width = `${window.innerWidth}px`;
-      background.style.height = `${
-        window.innerWidth * (this.stageHeight / this.stageWidth)
-      }px`;
-    } else {
-      background.style.width = `${
-        window.innerHeight * (this.stageWidth / this.stageHeight)
-      }px`;
-      background.style.height = `${window.innerHeight}px`;
-    }
+    background.style.width = `${backgroundWidth}px`;
+    background.style.marginLeft = `${this.leftOffset}px`;
+    background.style.height = `${backgroundHeight}px`;
+    background.style.marginTop = `${this.topOffset}px`;
 
     for (const box of this.boxes) box.fullAnimate();
   }
