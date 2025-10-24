@@ -5,6 +5,8 @@ type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;
 export default class BoxManager {
   stageWidth: number;
   stageHeight: number;
+  widthDrawRatio: number;
+  heightDrawRatio: number;
 
   boxes: Box[] = [];
   delta: number;
@@ -13,7 +15,8 @@ export default class BoxManager {
   constructor() {
     this.stageWidth = window.innerWidth;
     this.stageHeight = window.innerHeight;
-
+    this.widthDrawRatio = 1;
+    this.heightDrawRatio = 1;
     this.lastFrameTime = Date.now();
     this.delta = 0;
     this.onFrame();
@@ -24,9 +27,9 @@ export default class BoxManager {
     this.delta = now - this.lastFrameTime;
     this.lastFrameTime = now;
 
+    this.updateDrawRatios();
     for (const box of this.boxes) {
-      if (box.gravityScale == 0) continue;
-      box.physics();
+      if (box.gravityScale != 0) box.physics();
       box.animate();
     }
 
@@ -60,6 +63,11 @@ export default class BoxManager {
     }
 
     return undefined;
+  }
+
+  updateDrawRatios() {
+    this.widthDrawRatio = window.innerWidth / this.stageWidth;
+    this.heightDrawRatio = window.innerHeight / this.stageHeight;
   }
 
   addBox(...parameters: DropFirst<ConstructorParameters<typeof Box>>) {

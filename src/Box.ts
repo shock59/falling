@@ -31,8 +31,6 @@ export default class Box {
 
     this.div = document.createElement("div");
     this.div.classList.add("box");
-    this.div.style.width = `${this.width}px`;
-    this.div.style.height = `${this.height}px`;
     this.div.style.backgroundColor = color;
     this.animate();
     const body = document.querySelector<HTMLDivElement>("body")!;
@@ -40,8 +38,14 @@ export default class Box {
   }
 
   animate() {
-    this.div.style.left = `${this.x - this.width / 2}px`;
-    this.div.style.top = `${this.y - this.height / 2}px`;
+    this.div.style.width = `${this.width * this.manager.widthDrawRatio}px`;
+    this.div.style.height = `${this.height * this.manager.heightDrawRatio}px`;
+    this.div.style.left = `${
+      (this.x - this.width / 2) * this.manager.widthDrawRatio
+    }px`;
+    this.div.style.top = `${
+      (this.y - this.height / 2) * this.manager.heightDrawRatio
+    }px`;
   }
 
   physics(floor: Box | undefined = undefined): void {
