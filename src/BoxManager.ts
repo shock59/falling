@@ -9,6 +9,8 @@ export default class BoxManager {
   leftOffset!: number;
   topOffset!: number;
 
+  bars: { [k in "left" | "right" | "top" | "bottom"]: HTMLDivElement };
+
   boxes: Box[] = [];
   delta: number;
   lastFrameTime: number;
@@ -21,6 +23,22 @@ export default class BoxManager {
     this.stageHeight = stageHeight ?? window.innerHeight;
     this.lastFrameTime = Date.now();
     this.delta = 0;
+
+    const body = document.querySelector<HTMLDivElement>("body")!;
+    this.bars = Object.fromEntries(
+      (["left", "right", "top", "bottom"] as (keyof BoxManager["bars"])[]).map(
+        (barPosition) => {
+          const bar = document.createElement("div");
+          bar.classList.add("bar");
+          bar.style[barPosition] = "0";
+          if (["left", "right"].includes(barPosition)) bar.style.top = "0";
+          return [barPosition, bar];
+        }
+      )
+    ) as { [k in keyof BoxManager["bars"]]: HTMLDivElement };
+    for (const div of Object.values(this.bars)) {
+      body.appendChild(div);
+    }
 
     this.updateDrawRatios();
     window.addEventListener("resize", () => this.updateDrawRatios());
@@ -87,11 +105,17 @@ export default class BoxManager {
         : window.innerHeight;
     this.topOffset = (window.innerHeight - backgroundHeight) / 2;
 
-    const background: HTMLDivElement = document.querySelector("#background")!;
-    background.style.width = `${backgroundWidth}px`;
-    background.style.marginLeft = `${this.leftOffset}px`;
-    background.style.height = `${backgroundHeight}px`;
-    background.style.marginTop = `${this.topOffset}px`;
+    for (const barPosition of Object.keys(
+      this.bars
+    ) as (keyof BoxManager["bars"])[]) {
+      const bar = this.bars[barPosition];
+      bar.style.width = ["left", "right"].includes(barPosition)
+        ? `${this.leftOffset}px`
+        : `${window.innerWidth}px`;
+      bar.style.height = ["top", "bottom"].includes(barPosition)
+        ? `${this.topOffset}px`
+        : `${window.innerHeight}px`;
+    }
 
     for (const box of this.boxes) box.fullAnimate();
   }
