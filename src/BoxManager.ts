@@ -53,7 +53,7 @@ export default class BoxManager {
       }
     }
 
-    return false;
+    return undefined;
   }
 
   addBox(...parameters: DropFirst<ConstructorParameters<typeof Box>>) {

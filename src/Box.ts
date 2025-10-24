@@ -44,14 +44,20 @@ export default class Box {
     this.div.style.top = `${this.y - this.height / 2}px`;
   }
 
-  physics() {
-    const floor = this.manager.touchingFloor(this);
+  physics(floor: Box | undefined = undefined): void {
+    if (!floor) floor = this.manager.touchingFloor(this);
     if (floor) {
       this.gravity = floor.gravity;
       this.y = floor.y - floor.height / 2 - this.height / 2;
     } else {
       this.gravity -= this.gravityScale * this.manager.delta;
-      this.y -= this.gravity;
+      let distanceToMove = this.gravity;
+      while (-distanceToMove > this.height / 2) {
+        this.y += this.height / 2;
+        distanceToMove += this.height / 2;
+        if (this.manager.touchingFloor(this)) return this.physics(floor);
+      }
+      this.y -= distanceToMove;
     }
   }
 }
