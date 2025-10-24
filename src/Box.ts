@@ -17,6 +17,8 @@ export default class Box {
     manager: BoxManager,
     width: number,
     height: number,
+    x: number | undefined,
+    y: number,
     gravityScale: number,
     color: string
   ) {
@@ -25,8 +27,8 @@ export default class Box {
     this.height = height;
     this.gravityScale = gravityScale;
 
-    this.x = (window.innerWidth - this.width) / 2;
-    this.y = 0;
+    this.x = x ?? window.innerWidth / 2;
+    this.y = y;
 
     this.div = document.createElement("div");
     this.div.classList.add("box");
@@ -38,12 +40,18 @@ export default class Box {
   }
 
   animate() {
-    this.div.style.left = `${this.x}px`;
-    this.div.style.top = `${this.y}px`;
+    this.div.style.left = `${this.x - this.width / 2}px`;
+    this.div.style.top = `${this.y - this.height / 2}px`;
   }
 
   physics() {
-    this.gravity -= this.gravityScale * this.manager.delta;
-    this.y -= this.gravity;
+    const floor = this.manager.touchingFloor(this);
+    if (floor) {
+      this.gravity = floor.gravity;
+      this.y = floor.y - floor.height / 2 - this.height / 2;
+    } else {
+      this.gravity -= this.gravityScale * this.manager.delta;
+      this.y -= this.gravity;
+    }
   }
 }
