@@ -39,16 +39,16 @@ export default class Box {
 
   animate() {
     this.div.style.left = `${
-      (this.x - this.width / 2) * this.manager.widthDrawRatio
+      (this.x - this.width / 2) * this.manager.drawRatio
     }px`;
     this.div.style.top = `${
-      (this.y - this.height / 2) * this.manager.heightDrawRatio
+      (this.y - this.height / 2) * this.manager.drawRatio
     }px`;
   }
 
   fullAnimate() {
-    this.div.style.width = `${this.width * this.manager.widthDrawRatio}px`;
-    this.div.style.height = `${this.height * this.manager.heightDrawRatio}px`;
+    this.div.style.width = `${this.width * this.manager.drawRatio}px`;
+    this.div.style.height = `${this.height * this.manager.drawRatio}px`;
     this.animate();
   }
 

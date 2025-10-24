@@ -5,8 +5,7 @@ type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;
 export default class BoxManager {
   stageWidth: number;
   stageHeight: number;
-  widthDrawRatio: number;
-  heightDrawRatio: number;
+  drawRatio: number;
 
   boxes: Box[] = [];
   delta: number;
@@ -15,8 +14,7 @@ export default class BoxManager {
   constructor() {
     this.stageWidth = window.innerWidth;
     this.stageHeight = window.innerHeight;
-    this.widthDrawRatio = 1;
-    this.heightDrawRatio = 1;
+    this.drawRatio = 1;
     this.lastFrameTime = Date.now();
     this.delta = 0;
 
@@ -69,8 +67,23 @@ export default class BoxManager {
   }
 
   updateDrawRatios() {
-    this.widthDrawRatio = window.innerWidth / this.stageWidth;
-    this.heightDrawRatio = window.innerHeight / this.stageHeight;
+    const widthRatio = window.innerWidth / this.stageWidth;
+    const heightRatio = window.innerHeight / this.stageHeight;
+    this.drawRatio = Math.min(widthRatio, heightRatio);
+
+    const background: HTMLDivElement = document.querySelector("#background")!;
+    if (this.drawRatio == widthRatio) {
+      background.style.width = `${window.innerWidth}px`;
+      background.style.height = `${
+        window.innerWidth * (this.stageHeight / this.stageWidth)
+      }px`;
+    } else {
+      background.style.width = `${
+        window.innerHeight * (this.stageWidth / this.stageHeight)
+      }px`;
+      background.style.height = `${window.innerHeight}px`;
+    }
+
     for (const box of this.boxes) box.fullAnimate();
   }
 
