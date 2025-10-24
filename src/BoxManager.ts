@@ -3,11 +3,17 @@ import Box from "./Box";
 type DropFirst<T extends unknown[]> = T extends [any, ...infer U] ? U : never;
 
 export default class BoxManager {
+  stageWidth: number;
+  stageHeight: number;
+
   boxes: Box[] = [];
   delta: number;
   lastFrameTime: number;
 
   constructor() {
+    this.stageWidth = window.innerWidth;
+    this.stageHeight = window.innerHeight;
+
     this.lastFrameTime = Date.now();
     this.delta = 0;
     this.onFrame();

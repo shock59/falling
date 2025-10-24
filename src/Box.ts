@@ -27,7 +27,7 @@ export default class Box {
     this.height = height;
     this.gravityScale = gravityScale;
 
-    this.x = x ?? window.innerWidth / 2;
+    this.x = x ?? manager.stageWidth / 2;
     this.y = y;
 
     this.div = document.createElement("div");
