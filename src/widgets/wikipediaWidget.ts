@@ -1,4 +1,4 @@
-export default function imageWidget(src: string) {
+export default function wikipediaWidget(src: string) {
   const iframe = document.createElement("iframe");
   iframe.src = src;
   iframe.style.width = "100%";
@@ -12,7 +12,7 @@ export default function imageWidget(src: string) {
   overlayDiv.style.position = "relative";
   overlayDiv.style.left = "0";
   overlayDiv.style.top = "-100%";
-  overlayDiv.addEventListener("wheel", (event) => {
+  overlayDiv.addEventListener("wheel", () => {
     overlayDiv.style.pointerEvents = "none";
     setTimeout(() => (overlayDiv.style.pointerEvents = "auto"), 15);
   });
