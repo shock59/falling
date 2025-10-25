@@ -21,6 +21,8 @@ body {
   position: absolute;
   z-index: 1;
   cursor: grab;
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
 }
 
 .grabbed {

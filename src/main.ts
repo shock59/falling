@@ -1,5 +1,6 @@
 import BoxManager from "./BoxManager";
 import "./style.css";
+import youtubeWidget from "./youtubeWidget";
 
 const boxManager = new BoxManager(1280, 720);
 
@@ -12,6 +13,12 @@ div.style.justifyContent = "center";
 div.style.alignItems = "center";
 div.innerText = "Floor";
 boxManager.addBox(800, 50, undefined, 620, 0, "white", [div]);
+
+boxManager.addBox(360, 360 * (9 / 16), undefined, 0, 0.1, "white", [
+  youtubeWidget("E8UmTJVDnUI", {
+    captions: true,
+  }),
+]);
 
 const colors = [
   "DeepPink",
