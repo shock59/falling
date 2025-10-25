@@ -20,6 +20,11 @@ body {
 .box {
   position: absolute;
   z-index: 1;
+  cursor: grab;
+}
+
+.grabbed {
+  cursor: grabbing;
 }
 
 .bar {

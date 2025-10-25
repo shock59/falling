@@ -12,6 +12,8 @@ export default class Box {
   y: number;
   gravity: number = 0;
 
+  grabbedEvent: ((event: MouseEvent) => void) | undefined = undefined;
+
   constructor(
     manager: BoxManager,
     width: number,
@@ -30,9 +32,25 @@ export default class Box {
     this.y = y;
 
     this.div = document.createElement("div");
+
     this.div.classList.add("box");
     this.div.style.backgroundColor = color;
     this.fullAnimate();
+
+    this.div.addEventListener("mousedown", () => {
+      this.div.classList.add("grabbed");
+
+      this.grabbedEvent = (event) => this.drag(event);
+      document.addEventListener("mousemove", this.grabbedEvent);
+    });
+    document.addEventListener("mouseup", () => {
+      if (this.grabbedEvent == undefined) return;
+      this.div.classList.remove("grabbed");
+      document.removeEventListener("mousemove", this.grabbedEvent);
+      this.grabbedEvent = undefined;
+      this.gravity = 0;
+    });
+
     const body = document.querySelector<HTMLDivElement>("body")!;
     body.appendChild(this.div);
   }
@@ -55,6 +73,7 @@ export default class Box {
   }
 
   physics(floor: Box | undefined = undefined): void {
+    if (this.grabbedEvent != undefined) return;
     if (!floor) floor = this.manager.touchingFloor(this);
     if (floor) {
       this.gravity = floor.gravity;
@@ -69,5 +88,10 @@ export default class Box {
       }
       this.y -= distanceToMove;
     }
+  }
+
+  drag(event: MouseEvent) {
+    this.x = event.x / this.manager.drawRatio - this.manager.leftOffset;
+    this.y = event.y / this.manager.drawRatio - this.manager.topOffset;
   }
 }
