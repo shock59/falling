@@ -91,7 +91,7 @@ export default class Box {
   }
 
   drag(event: MouseEvent) {
-    this.x = event.x / this.manager.drawRatio - this.manager.leftOffset;
-    this.y = event.y / this.manager.drawRatio - this.manager.topOffset;
+    this.x = (event.x - this.manager.leftOffset) / this.manager.drawRatio;
+    this.y = (event.y - this.manager.topOffset) / this.manager.drawRatio;
   }
 }
