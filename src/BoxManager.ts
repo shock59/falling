@@ -50,7 +50,7 @@ export default class BoxManager {
     this.delta = now - this.lastFrameTime;
     this.lastFrameTime = now;
 
-    for (const box of this.boxes) {
+    for (const box of this.boxes.toSorted((a, b) => b.y - a.y)) {
       if (box.gravityScale == 0) continue;
       box.physics();
       box.animate();
@@ -72,7 +72,7 @@ export default class BoxManager {
         other.x + other.width / 2,
       ];
       const otherTopY = other.y - other.height / 2;
-      const otherBottomY = other.y + other.height / 2;
+      const otherBottomY = other.y + other.height / 2 - box.height / 2;
 
       if (boxBottomY < otherTopY || boxTopY >= otherBottomY) continue;
       if (

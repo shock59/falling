@@ -90,13 +90,14 @@ export default class Box {
     if (floor) {
       this.gravity = floor.gravity;
       this.y = floor.y - floor.height / 2 - this.height / 2;
+      if (this.manager.touchingFloor(this) != floor) return this.physics();
     } else {
       this.gravity -= this.gravityScale * this.manager.delta;
       let distanceToMove = this.gravity;
       while (-distanceToMove > this.height / 2) {
         this.y += this.height / 2;
         distanceToMove += this.height / 2;
-        if (this.manager.touchingFloor(this)) return this.physics(floor);
+        if (this.manager.touchingFloor(this)) return this.physics();
       }
       this.y -= distanceToMove;
     }
