@@ -23,7 +23,8 @@ export default class Box {
     x: number | undefined,
     y: number,
     gravityScale: number,
-    color: string
+    color: string,
+    children: Element[] = []
   ) {
     this.manager = manager;
     this.width = width;
@@ -58,6 +59,10 @@ export default class Box {
       this.grabbedEvent = undefined;
       this.gravity = 0;
     });
+
+    for (const child of children) {
+      this.div.appendChild(child);
+    }
 
     const body = document.querySelector<HTMLDivElement>("body")!;
     body.appendChild(this.div);
