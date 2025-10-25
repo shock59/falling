@@ -13,6 +13,8 @@ export default class Box {
   gravity: number = 0;
 
   grabbedEvent: ((event: MouseEvent) => void) | undefined = undefined;
+  grabOffsetX: number = 0;
+  grabOffsetY: number = 0;
 
   constructor(
     manager: BoxManager,
@@ -37,9 +39,15 @@ export default class Box {
     this.div.style.backgroundColor = color;
     this.fullAnimate();
 
-    this.div.addEventListener("mousedown", () => {
+    this.div.addEventListener("mousedown", (event) => {
       this.div.classList.add("grabbed");
-
+      this.grabOffsetX =
+        (event.x - this.x * this.manager.drawRatio - this.manager.leftOffset) /
+        this.manager.drawRatio;
+      this.grabOffsetY =
+        (event.y - this.y * this.manager.drawRatio - this.manager.topOffset) /
+        this.manager.drawRatio;
+      console.log(this.grabOffsetX);
       this.grabbedEvent = (event) => this.drag(event);
       document.addEventListener("mousemove", this.grabbedEvent);
     });
@@ -91,7 +99,12 @@ export default class Box {
   }
 
   drag(event: MouseEvent) {
-    this.x = (event.x - this.manager.leftOffset) / this.manager.drawRatio;
-    this.y = (event.y - this.manager.topOffset) / this.manager.drawRatio;
+    this.x =
+      (event.x - this.manager.leftOffset) / this.manager.drawRatio -
+      this.grabOffsetX;
+    this.y =
+      (event.y - this.manager.topOffset) / this.manager.drawRatio -
+      this.grabOffsetY;
+    this.animate();
   }
 }
