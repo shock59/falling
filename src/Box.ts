@@ -48,7 +48,6 @@ export default class Box {
       this.grabOffsetY =
         (event.y - this.y * this.manager.drawRatio - this.manager.topOffset) /
         this.manager.drawRatio;
-      console.log(this.grabOffsetX);
       this.grabbedEvent = (event) => this.drag(event);
       document.addEventListener("mousemove", this.grabbedEvent);
     });
