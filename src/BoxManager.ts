@@ -56,11 +56,12 @@ export default class BoxManager {
       box.animate();
     }
 
-    requestAnimationFrame(() => this.onFrame());
+    setTimeout(() => requestAnimationFrame(() => this.onFrame()));
   }
 
   touchingFloor(box: Box) {
     const boxXCorners = [box.x - box.width / 2, box.x + box.width / 2];
+    const boxTopY = box.y - box.height / 2;
     const boxBottomY = box.y + box.height / 2;
 
     for (const other of this.boxes) {
@@ -73,7 +74,7 @@ export default class BoxManager {
       const otherTopY = other.y - other.height / 2;
       const otherBottomY = other.y + other.height / 2;
 
-      if (boxBottomY < otherTopY || boxBottomY >= otherBottomY) continue;
+      if (boxBottomY < otherTopY || boxTopY >= otherBottomY) continue;
       if (
         (boxXCorners[0] <= otherXCorners[0] &&
           boxXCorners[1] >= otherXCorners[0]) ||
