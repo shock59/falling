@@ -49,13 +49,13 @@ body {
 }
 
 #popup {
-  width: 400px;
+  width: 480px;
   padding-bottom: 10px;
   background: #1b1b1b;
   font-size: 20px;
 }
 
-#popup div {
+#popup > div {
   padding: 4px 16px;
 }
 
@@ -68,8 +68,16 @@ body {
 }
 
 select,
-button {
+button,
+input {
   font: inherit;
+}
+
+textarea {
+  width: calc(100% - 8px);
+  resize: vertical;
+  font: inherit;
+  font-family: monospace;
 }
 
 .hidden {

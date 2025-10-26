@@ -18,27 +18,79 @@
         <div>
           <label for="box-type">Box Type</label>
           <select id="box-type">
-            <option>Basic</option>
-            <option>Image</option>
-            <option>YouTube video</option>
-            <option>Other video</option>
-            <option>Website embed</option>
-            <option>Custom HTML</option>
+            <option value="basic" selected>Basic</option>
+            <option value="image">Image</option>
+            <option value="youtube">YouTube video</option>
+            <option value="audio">Audio</option>
+            <option value="embed">Website embed</option>
+            <option value="html">Custom HTML</option>
           </select>
+        </div>
+
+        <div>
+          <label for="box-width">Width</label>
+          <input type="number" id="box-width" value="200" />
         </div>
         <div>
-          <label for="color">Colour</label>
-          <select id="color">
-            <option value="DeepPink">Pink</option>
-            <option value="Red">Red</option>
-            <option value="Orange">Orange</option>
-            <option value="Gold">Yellow</option>
-            <option value="Lime">Green</option>
-            <option value="Turquoise">Turquoise</option>
-            <option value="DodgerBlue">Blue</option>
-            <option value="BlueViolet">Purple</option>
-          </select>
+          <label for="box-height">Height</label>
+          <input type="number" id="box-height" value="50" />
         </div>
+        <div>
+          <label for="box-gravity">Gravity</label>
+          <input type="number" id="box-gravity" value="0.1" step="0.05" />
+        </div>
+
+        <div id="popupoptions-basic" class="popupoptions">
+          <div>
+            <label for="color" selected>Colour</label>
+            <select id="color">
+              <option value="DeepPink">Pink</option>
+              <option value="Red">Red</option>
+              <option value="Orange">Orange</option>
+              <option value="Gold">Yellow</option>
+              <option value="Lime">Green</option>
+              <option value="Turquoise">Turquoise</option>
+              <option value="DodgerBlue">Blue</option>
+              <option value="BlueViolet">Purple</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="popupoptions-image" class="popupoptions hidden">
+          <div>
+            <label for="image-src">Image URL</label>
+            <input type="text" id="image-src" />
+          </div>
+        </div>
+
+        <div id="popupoptions-youtube" class="popupoptions hidden">
+          <div>
+            <label for="youtube-id">Video ID</label>
+            <input type="text" id="youtube-id" />
+          </div>
+        </div>
+
+        <div id="popupoptions-audio" class="popupoptions hidden">
+          <div>
+            <label for="audio-src">Audio URL</label>
+            <input type="text" id="audio-src" />
+          </div>
+        </div>
+
+        <div id="popupoptions-embed" class="popupoptions hidden">
+          <div>
+            <label for="website-src">Website URL</label>
+            <input type="text" id="website-src" />
+          </div>
+        </div>
+
+        <div id="popupoptions-html" class="popupoptions hidden">
+          <div>
+            <label for="custom-html">Custom HTML</label>
+            <textarea type="text" id="custom-html"></textarea>
+          </div>
+        </div>
+
         <div><button id="add-box">Add box</button></div>
       </div>
     </div>
