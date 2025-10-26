@@ -126,6 +126,10 @@ export default function setUpPopup(boxManager: BoxManager) {
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
       addboxPopupBackground.classList.remove("hidden");
+    } else if (event.key == "Escape") {
+      for (const popupBackground of popupBackgrounds) {
+        popupBackground.classList.add("hidden");
+      }
     }
   });
 }
