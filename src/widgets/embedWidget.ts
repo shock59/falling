@@ -14,9 +14,16 @@ export default function embedWidget(src: string) {
   overlayDiv.style.position = "relative";
   overlayDiv.style.left = "0";
   overlayDiv.style.top = "-100%";
+
+  let timeout: number;
   overlayDiv.addEventListener("wheel", () => {
+    console.log("wheel");
     overlayDiv.style.pointerEvents = "none";
-    setTimeout(() => (overlayDiv.style.pointerEvents = "auto"), 15);
+    if (timeout != undefined) clearTimeout(timeout);
+    console.log(timeout);
+    timeout = setTimeout(() => {
+      overlayDiv.style.pointerEvents = "auto";
+    }, 300);
   });
 
   const container = document.createElement("div");
