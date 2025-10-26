@@ -5,6 +5,7 @@ export default function audioWidget(src: string) {
   const playImage = document.createElement("img");
   playImage.src = "play.svg";
   playImage.style.height = "100%";
+  playImage.style.pointerEvents = "none";
 
   const playButton = document.createElement("button");
   playButton.style.padding = "0";
