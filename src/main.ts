@@ -32,14 +32,27 @@ const colors = [
   "BlueViolet",
 ];
 
+const popupBackground =
+  document.querySelector<HTMLDivElement>("#popup-background")!;
+const popup = document.querySelector<HTMLDivElement>("#popup")!;
+popupBackground.addEventListener("click", () =>
+  popupBackground.classList.add("hidden")
+);
+popup.addEventListener("click", (event) => {
+  event.stopPropagation();
+});
+
 document.addEventListener("keydown", (event) => {
-  if (event.key != " ") return;
-  boxManager.addBox(
-    200,
-    50,
-    undefined,
-    0,
-    0.05,
-    colors[Math.floor(Math.random() * colors.length)]
-  );
+  if (event.key == " ") {
+    boxManager.addBox(
+      200,
+      50,
+      undefined,
+      0,
+      0.05,
+      colors[Math.floor(Math.random() * colors.length)]
+    );
+  } else if (event.key == "Enter") {
+    popupBackground.classList.remove("hidden");
+  }
 });

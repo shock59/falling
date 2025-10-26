@@ -34,3 +34,43 @@ body {
   background: #1b1b1b;
   z-index: 2;
 }
+
+#popup-background {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  background: rgb(0, 0, 0, 0.65);
+}
+
+#popup {
+  width: 400px;
+  padding-bottom: 10px;
+  background: #1b1b1b;
+  font-size: 20px;
+}
+
+#popup div {
+  padding: 0 16px;
+}
+
+#popup-title {
+  padding: 10px 0 !important;
+  margin-bottom: 10px;
+  background: #2c2c2c;
+  text-align: center;
+  font-weight: bold;
+}
+
+select {
+  font: inherit;
+}
+
+.hidden {
+  display: none !important;
+}
