@@ -15,6 +15,8 @@ export default class Box {
   grabbedEvent: ((event: MouseEvent) => void) | undefined = undefined;
   grabOffsetX: number = 0;
   grabOffsetY: number = 0;
+  grabLastY: number = 0;
+  grabPreviousYVelocity: number[] = [];
 
   constructor(
     manager: BoxManager,
@@ -56,7 +58,11 @@ export default class Box {
       this.div.classList.remove("grabbed");
       document.removeEventListener("mousemove", this.grabbedEvent);
       this.grabbedEvent = undefined;
-      this.gravity = 0;
+      this.gravity = -(
+        this.grabPreviousYVelocity.reduce((a, b) => a + b) /
+        this.grabPreviousYVelocity.length
+      );
+      if (this.gravity > 0) this.gravity /= 2;
     });
 
     for (const child of children) {
@@ -111,5 +117,10 @@ export default class Box {
       (event.y - this.manager.topOffset) / this.manager.drawRatio -
       this.grabOffsetY;
     this.animate();
+    this.grabPreviousYVelocity.unshift(this.y - this.grabLastY);
+    if (this.grabPreviousYVelocity.length > 5) {
+      this.grabPreviousYVelocity.pop();
+    }
+    this.grabLastY = this.y;
   }
 }
