@@ -23,8 +23,18 @@ export default function setUpPopup(boxManager: BoxManager) {
     document.querySelector<HTMLSelectElement>("#box-height")!;
   const popupBoxGravityInput =
     document.querySelector<HTMLSelectElement>("#box-gravity")!;
+  const colorSelect = document.querySelector<HTMLSelectElement>("#color")!;
   const popupAddBoxButton =
     document.querySelector<HTMLButtonElement>("#add-box")!;
+  const hexcodeOptions = document.querySelector<HTMLDivElement>(
+    "#popupoptions-hexcode"
+  )!;
+
+  const updateHexcodeOptionsVisibility = () => {
+    if (colorSelect.value == "custom")
+      hexcodeOptions.classList.remove("hidden");
+    else hexcodeOptions.classList.add("hidden");
+  };
 
   popupBoxTypeSelect.addEventListener("change", () => {
     for (const div of popup.querySelectorAll<HTMLDivElement>(".popupoptions")) {
@@ -32,22 +42,28 @@ export default function setUpPopup(boxManager: BoxManager) {
         div.classList.remove("hidden");
       else div.classList.add("hidden");
     }
+    if (popupBoxTypeSelect.value == "basic") updateHexcodeOptionsVisibility();
+    else hexcodeOptions.classList.add("hidden");
   });
+  colorSelect.addEventListener("change", updateHexcodeOptionsVisibility);
 
   popupAddBoxButton.addEventListener("click", () => {
     let widget: Element | undefined;
 
     switch (popupBoxTypeSelect.value) {
       case "basic":
-        const colorSelect =
-          document.querySelector<HTMLSelectElement>("#color")!;
         boxManager.addBox(
           Number(popupBoxWidthInput.value),
           Number(popupBoxHeightInput.value),
           undefined,
           0,
           Number(popupBoxGravityInput.value),
-          colorSelect.value
+          colorSelect.value == "custom"
+            ? `#${
+                hexcodeOptions.querySelector<HTMLInputElement>("#hex-code")!
+                  .value
+              }`
+            : colorSelect.value
         );
         break;
 
