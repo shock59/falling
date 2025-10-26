@@ -58,11 +58,17 @@ export default class Box {
       this.div.classList.remove("grabbed");
       document.removeEventListener("mousemove", this.grabbedEvent);
       this.grabbedEvent = undefined;
+
+      if (this.grabPreviousYVelocity.length == 0) {
+        this.gravity = 0;
+        return;
+      }
       this.gravity = -(
         this.grabPreviousYVelocity.reduce((a, b) => a + b) /
         this.grabPreviousYVelocity.length
       );
       if (this.gravity > 0) this.gravity /= 2;
+      this.grabPreviousYVelocity = [];
     });
 
     for (const child of children) {
