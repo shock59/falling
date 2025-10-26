@@ -65,6 +65,11 @@ export default function audioWidget(src: string) {
 
   audio.addEventListener("loadedmetadata", updateTime);
   audio.addEventListener("timeupdate", updateTime);
+  audio.addEventListener("ended", () => {
+    audio.pause();
+    playImage.src = "play.svg";
+    playing = false;
+  });
 
   let playing = false;
 
