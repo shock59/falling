@@ -1,7 +1,7 @@
 import type BoxManager from "./BoxManager";
 import audioWidget from "./widgets/audioWidget";
 import imageWidget from "./widgets/imageWidget";
-import wikipediaWidget from "./widgets/wikipediaWidget";
+import embedWidget from "./widgets/embedWidget";
 import youtubeWidget from "./widgets/youtubeWidget";
 
 export default function setUpPopup(boxManager: BoxManager) {
@@ -71,7 +71,7 @@ export default function setUpPopup(boxManager: BoxManager) {
       case "embed":
         const embedSrc =
           document.querySelector<HTMLInputElement>("#embed-src")!;
-        widget = wikipediaWidget(embedSrc.value);
+        widget = embedWidget(embedSrc.value);
         break;
 
       case "html":

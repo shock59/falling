@@ -1,4 +1,4 @@
-export default function wikipediaWidget(src: string) {
+export default function embedWidget(src: string) {
   const iframe = document.createElement("iframe");
   iframe.src = src;
   iframe.style.width = "100%";
