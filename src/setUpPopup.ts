@@ -83,7 +83,20 @@ export default function setUpPopup(boxManager: BoxManager) {
       case "youtube":
         const videoId =
           document.querySelector<HTMLInputElement>("#youtube-id")!;
-        widget = youtubeWidget(videoId.value);
+        const autoplay =
+          document.querySelector<HTMLInputElement>("#youtube-autoplay")!;
+        const muted =
+          document.querySelector<HTMLInputElement>("#youtube-muted")!;
+        const controls =
+          document.querySelector<HTMLInputElement>("#youtube-controls")!;
+        const captions =
+          document.querySelector<HTMLInputElement>("#youtube-captions")!;
+        widget = youtubeWidget(videoId.value, {
+          autoplay: autoplay.checked,
+          muted: muted.checked,
+          controls: controls.checked,
+          captions: captions.checked,
+        });
         break;
 
       case "audio":

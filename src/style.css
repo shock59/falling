@@ -72,6 +72,11 @@ body {
   font-weight: normal;
 }
 
+label {
+  display: inline-block;
+  height: 41px;
+}
+
 select,
 button,
 input {
