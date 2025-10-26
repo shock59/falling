@@ -56,7 +56,7 @@ body {
 }
 
 #popup div {
-  padding: 0 16px;
+  padding: 4px 16px;
 }
 
 #popup-title {
@@ -67,7 +67,8 @@ body {
   font-weight: bold;
 }
 
-select {
+select,
+button {
   font: inherit;
 }
 

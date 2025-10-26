@@ -20,18 +20,6 @@ boxManager.addBox(400, 50, undefined, 0, 0.08, "darkgray", [
   ),
 ]);
 
-const colors = [
-  "DeepPink",
-  "Red",
-  "Orange",
-  "Gold",
-  "Fuchsia",
-  "Lime",
-  "Turquoise",
-  "DodgerBlue",
-  "BlueViolet",
-];
-
 const popupBackground =
   document.querySelector<HTMLDivElement>("#popup-background")!;
 const popup = document.querySelector<HTMLDivElement>("#popup")!;
@@ -42,17 +30,17 @@ popup.addEventListener("click", (event) => {
   event.stopPropagation();
 });
 
+const popupBoxColorSelect =
+  document.querySelector<HTMLSelectElement>("#color")!;
+const popupAddBoxButton =
+  document.querySelector<HTMLButtonElement>("#add-box")!;
+popupAddBoxButton.addEventListener("click", () => {
+  boxManager.addBox(200, 50, undefined, 0, 0.05, popupBoxColorSelect.value);
+  popupBackground.classList.add("hidden");
+});
+
 document.addEventListener("keydown", (event) => {
-  if (event.key == " ") {
-    boxManager.addBox(
-      200,
-      50,
-      undefined,
-      0,
-      0.05,
-      colors[Math.floor(Math.random() * colors.length)]
-    );
-  } else if (event.key == "Enter") {
+  if (event.key == "Enter") {
     popupBackground.classList.remove("hidden");
   }
 });
