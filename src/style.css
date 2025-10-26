@@ -67,6 +67,11 @@ body {
   font-weight: bold;
 }
 
+.popup-title small {
+  font-size: 12px;
+  font-weight: normal;
+}
+
 select,
 button,
 input {
