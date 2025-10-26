@@ -18,6 +18,8 @@ export default function youtubeWidget(
   thumbnailDiv.style.backgroundSize = "contain";
   thumbnailDiv.style.backgroundPosition = "center";
   thumbnailDiv.style.backgroundRepeat = "no-repeat";
+  thumbnailDiv.style.outline = "1px Gray solid";
+  thumbnailDiv.style.outlineOffset = "-1px";
 
   const playerDiv = document.createElement("div");
   playerDiv.style.width = "100%";
@@ -74,7 +76,10 @@ async function loadVideo(
 
   player.on("stateChange", async (event) => {
     if (event.data != (playerOptions.autoplay ? 1 : -1)) return;
-    (await player.getIframe()).style.display = "block";
+    const iframe = await player.getIframe();
+    iframe.style.display = "block";
+    iframe.style.outline = "1px Gray solid";
+    iframe.style.outlineOffset = "-1px";
     thumbnailDiv.style.display = "none";
   });
 }

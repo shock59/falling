@@ -4,6 +4,8 @@ export default function embedWidget(src: string) {
   iframe.style.width = "100%";
   iframe.style.height = "100%";
   iframe.style.border = "none";
+  iframe.style.outline = "1px Gray solid";
+  iframe.style.outlineOffset = "-1px";
   iframe.style.display = "block";
 
   const overlayDiv = document.createElement("div");
