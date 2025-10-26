@@ -26,21 +26,41 @@ export default function youtubeWidget(
   playerDiv.style.height = "100%";
   playerDiv.style.display = "none";
 
+  const overlayDiv = document.createElement("div");
+  overlayDiv.style.width = "100%";
+  overlayDiv.style.height = "100%";
+  overlayDiv.style.position = "relative";
+  overlayDiv.style.left = "0";
+  overlayDiv.style.top = "-100%";
+
+  if (playerOptions?.controls == true) {
+    overlayDiv.style.pointerEvents = "none";
+
+    const handle = document.createElement("div");
+    handle.style.width = "90%";
+    handle.style.height = "15%";
+    handle.style.marginLeft = "5%";
+    handle.style.pointerEvents = "auto";
+    handle.style.textAlign = "center";
+    handle.style.background = "Gray";
+    handle.style.opacity = "0";
+    handle.style.transition = "200ms";
+
+    overlayDiv.addEventListener("mouseenter", () => {
+      handle.style.opacity = "1";
+    });
+    overlayDiv.addEventListener("mouseleave", () => {
+      handle.style.opacity = "0";
+    });
+    overlayDiv.appendChild(handle);
+  }
+
   const container = document.createElement("div");
   container.style.width = "100%";
   container.style.height = "100%";
   container.appendChild(thumbnailDiv);
   container.appendChild(playerDiv);
-  if (playerOptions?.controls != true) {
-    const overlayDiv = document.createElement("div");
-    overlayDiv.style.width = "100%";
-    overlayDiv.style.height = "100%";
-    overlayDiv.style.position = "relative";
-    overlayDiv.style.left = "0";
-    overlayDiv.style.top = "-100%";
-    overlayDiv.style.pointerEvents = "none !important";
-    container.appendChild(overlayDiv);
-  }
+  container.appendChild(overlayDiv);
 
   loadVideo(playerDiv, thumbnailDiv, videoId, playerOptions);
 
