@@ -12,9 +12,24 @@
     />
   </head>
   <body>
-    <div id="popup-background" class="hidden">
-      <div id="popup">
-        <div id="popup-title">Add a new box</div>
+    <div class="popup-background">
+      <div class="popup">
+        <div class="popup-title">Physics* Simulation</div>
+        <div>
+          <small>*kind of, right now it only simulates gravity 😔</small>
+        </div>
+        <div>
+          Welcome to my physics simulation. You can add boxes to the stage and
+          drag them around, and they will simulate gravity. Click out of this
+          box or press escape to try it out, and press Enter to add your own
+          boxes to the stage!
+        </div>
+      </div>
+    </div>
+
+    <div class="popup-background hidden" id="addbox-popup-background">
+      <div class="popup">
+        <div class="popup-title">Add a new box</div>
         <div>
           <label for="box-type">Box Type</label>
           <select id="box-type">

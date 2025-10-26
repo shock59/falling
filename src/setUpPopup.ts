@@ -5,12 +5,20 @@ import embedWidget from "./widgets/embedWidget";
 import youtubeWidget from "./widgets/youtubeWidget";
 
 export default function setUpPopup(boxManager: BoxManager) {
-  const popupBackground =
-    document.querySelector<HTMLDivElement>("#popup-background")!;
-  const popup = document.querySelector<HTMLDivElement>("#popup")!;
-  popupBackground.addEventListener("click", () =>
-    popupBackground.classList.add("hidden")
-  );
+  const popupBackgrounds =
+    document.querySelectorAll<HTMLDivElement>(".popup-background")!;
+  for (let popupBackground of popupBackgrounds)
+    popupBackground.addEventListener("click", () =>
+      popupBackground.classList.add("hidden")
+    );
+
+  const addboxPopupBackground = document.querySelector<HTMLDivElement>(
+    "#addbox-popup-background"
+  )!;
+  const popup = document.querySelector<HTMLDivElement>(
+    "#addbox-popup-background > .popup"
+  )!;
+
   popup.addEventListener("click", (event) => {
     event.stopPropagation();
   });
@@ -112,12 +120,12 @@ export default function setUpPopup(boxManager: BoxManager) {
       );
     }
 
-    popupBackground.classList.add("hidden");
+    addboxPopupBackground.classList.add("hidden");
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
-      popupBackground.classList.remove("hidden");
+      addboxPopupBackground.classList.remove("hidden");
     }
   });
 }
