@@ -146,6 +146,17 @@ export default function setUpPopup(boxManager: BoxManager) {
     addboxPopupBackground.classList.add("hidden");
   });
 
+  const custombgEnable =
+    document.querySelector<HTMLInputElement>("#bg-enable")!;
+  const custombgSrc = document.querySelector<HTMLInputElement>("#bg-src")!;
+  const custombgUpdateButton =
+    document.querySelector<HTMLButtonElement>("#bg-update")!;
+
+  custombgUpdateButton.addEventListener("click", () => {
+    boxManager.updateBackground(custombgEnable.checked, custombgSrc.value);
+    changebgPopupBackground.classList.add("hidden");
+  });
+
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
       for (const popupBackground of popupBackgrounds) {

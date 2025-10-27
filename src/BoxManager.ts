@@ -25,8 +25,12 @@ export default class BoxManager {
     this.lastFrameTime = Date.now();
     this.delta = 0;
 
-    const body = document.querySelector<HTMLDivElement>("body")!;
     this.background = document.querySelector<HTMLDivElement>("#background")!;
+    this.background.style.display = "none";
+    this.background.style.backgroundSize = "cover";
+    this.background.style.backgroundPosition = "center";
+
+    const body = document.querySelector<HTMLDivElement>("body")!;
     this.bars = Object.fromEntries(
       (["left", "right", "top", "bottom"] as (keyof BoxManager["bars"])[]).map(
         (barPosition) => {
@@ -108,7 +112,7 @@ export default class BoxManager {
         : window.innerHeight;
     this.topOffset = (window.innerHeight - backgroundHeight) / 2;
 
-    this.background.style.width = `${backgroundWidth}px`
+    this.background.style.width = `${backgroundWidth}px`;
     this.background.style.left = `${this.leftOffset}px`;
     this.background.style.height = `${backgroundHeight}px`;
     this.background.style.top = `${this.topOffset}px`;
@@ -130,5 +134,14 @@ export default class BoxManager {
 
   addBox(...parameters: DropFirst<ConstructorParameters<typeof Box>>) {
     this.boxes.push(new Box(this, ...parameters));
+  }
+
+  updateBackground(enable: boolean, src: string) {
+    if (enable) {
+      this.background.style.display = "flex";
+      this.background.style.backgroundImage = `url("${src}")`;
+    } else {
+      this.background.style.display = "none";
+    }
   }
 }
