@@ -12,12 +12,12 @@ export default function setUpPopup(boxManager: BoxManager) {
     popupBackground.addEventListener("click", () =>
       popupBackground.classList.add("hidden")
     );
-  
+
   const hidePopups = () => {
     for (const popupBackground of popupBackgrounds) {
       popupBackground.classList.add("hidden");
     }
-  }
+  };
 
   const addboxPopupBackground = document.querySelector<HTMLDivElement>(
     "#addbox-popup-background"
@@ -26,9 +26,9 @@ export default function setUpPopup(boxManager: BoxManager) {
     "#changebg-popup-background"
   )!;
 
-    const addboxPopup = document.querySelector<HTMLDivElement>(
-      "#addbox-popup-background > .popup"
-    )!;
+  const addboxPopup = document.querySelector<HTMLDivElement>(
+    "#addbox-popup-background > .popup"
+  )!;
   const changebgPopup = document.querySelector<HTMLDivElement>(
     "#changebg-popup-background > .popup"
   )!;
@@ -47,10 +47,10 @@ export default function setUpPopup(boxManager: BoxManager) {
     document.querySelector<HTMLSelectElement>("#box-height")!;
   const addboxGravityInput =
     document.querySelector<HTMLSelectElement>("#box-gravity")!;
-  const addboxColorSelect = document.querySelector<HTMLSelectElement>("#color")!;
-  const addBoxButton =
-    document.querySelector<HTMLButtonElement>("#add-box")!;
-  
+  const addboxColorSelect =
+    document.querySelector<HTMLSelectElement>("#color")!;
+  const addBoxButton = document.querySelector<HTMLButtonElement>("#add-box")!;
+
   const addboxHexcodeOptions = document.querySelector<HTMLDivElement>(
     "#popupoptions-hexcode"
   )!;
@@ -62,7 +62,9 @@ export default function setUpPopup(boxManager: BoxManager) {
   };
 
   addboxTypeSelect.addEventListener("change", () => {
-    for (const div of addboxPopup.querySelectorAll<HTMLDivElement>(".popupoptions")) {
+    for (const div of addboxPopup.querySelectorAll<HTMLDivElement>(
+      ".popupoptions"
+    )) {
       if (div.id == `popupoptions-${addboxTypeSelect.value}`)
         div.classList.remove("hidden");
       else div.classList.add("hidden");
@@ -85,8 +87,9 @@ export default function setUpPopup(boxManager: BoxManager) {
           Number(addboxGravityInput.value),
           addboxColorSelect.value == "custom"
             ? `#${
-                addboxHexcodeOptions.querySelector<HTMLInputElement>("#hex-code")!
-                  .value
+                addboxHexcodeOptions.querySelector<HTMLInputElement>(
+                  "#hex-code"
+                )!.value
               }`
             : addboxColorSelect.value
         );
@@ -162,7 +165,7 @@ export default function setUpPopup(boxManager: BoxManager) {
 
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
-      hidePopups()
+      hidePopups();
       addboxPopupBackground.classList.remove("hidden");
     } else if (event.key == "b") {
       hidePopups();
