@@ -30,7 +30,7 @@ export default class BoxManager {
     this.background.style.backgroundSize = "cover";
     this.background.style.backgroundPosition = "center";
 
-    const body = document.querySelector<HTMLDivElement>("body")!;
+    const body = document.querySelector<HTMLBodyElement>("body")!;
     this.bars = Object.fromEntries(
       (["left", "right", "top", "bottom"] as (keyof BoxManager["bars"])[]).map(
         (barPosition) => {
