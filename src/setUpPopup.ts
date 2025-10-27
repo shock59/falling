@@ -15,11 +15,21 @@ export default function setUpPopup(boxManager: BoxManager) {
   const addboxPopupBackground = document.querySelector<HTMLDivElement>(
     "#addbox-popup-background"
   )!;
+  const changebgPopupBackground = document.querySelector<HTMLDivElement>(
+    "#changebg-popup-background"
+  )!;
+
   const popup = document.querySelector<HTMLDivElement>(
     "#addbox-popup-background > .popup"
   )!;
+  const changebgPopup = document.querySelector<HTMLDivElement>(
+    "#changebg-popup-background > .popup"
+  )!;
 
   popup.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+  changebgPopup.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 
@@ -138,7 +148,15 @@ export default function setUpPopup(boxManager: BoxManager) {
 
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
+      for (const popupBackground of popupBackgrounds) {
+        popupBackground.classList.add("hidden");
+      }
       addboxPopupBackground.classList.remove("hidden");
+    } else if (event.key == "b") {
+      for (const popupBackground of popupBackgrounds) {
+        popupBackground.classList.add("hidden");
+      }
+      changebgPopupBackground.classList.remove("hidden");
     } else if (event.key == "Escape") {
       for (const popupBackground of popupBackgrounds) {
         popupBackground.classList.add("hidden");
