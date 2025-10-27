@@ -3,6 +3,7 @@ import audioWidget from "./widgets/audioWidget";
 import imageWidget from "./widgets/imageWidget";
 import embedWidget from "./widgets/embedWidget";
 import youtubeWidget from "./widgets/youtubeWidget";
+import htmlWidget from "./widgets/htmlWidget";
 
 export default function setUpPopup(boxManager: BoxManager) {
   const popupBackgrounds =
@@ -130,11 +131,7 @@ export default function setUpPopup(boxManager: BoxManager) {
       case "html":
         const customHtml =
           document.querySelector<HTMLTextAreaElement>("#custom-html")!;
-        const div = document.createElement("div");
-        div.style.width = "100%";
-        div.style.height = "100%";
-        div.innerHTML = customHtml.value;
-        widget = div;
+        widget = htmlWidget(customHtml.value);
         break;
     }
     if (widget != undefined) {
