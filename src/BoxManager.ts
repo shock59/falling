@@ -9,6 +9,7 @@ export default class BoxManager {
   leftOffset!: number;
   topOffset!: number;
 
+  background: HTMLDivElement;
   bars: { [k in "left" | "right" | "top" | "bottom"]: HTMLDivElement };
 
   boxes: Box[] = [];
@@ -25,6 +26,7 @@ export default class BoxManager {
     this.delta = 0;
 
     const body = document.querySelector<HTMLDivElement>("body")!;
+    this.background = document.querySelector<HTMLDivElement>("#background")!;
     this.bars = Object.fromEntries(
       (["left", "right", "top", "bottom"] as (keyof BoxManager["bars"])[]).map(
         (barPosition) => {
@@ -105,6 +107,11 @@ export default class BoxManager {
         ? window.innerWidth * (this.stageHeight / this.stageWidth)
         : window.innerHeight;
     this.topOffset = (window.innerHeight - backgroundHeight) / 2;
+
+    this.background.style.width = `${backgroundWidth}px`
+    this.background.style.left = `${this.leftOffset}px`;
+    this.background.style.height = `${backgroundHeight}px`;
+    this.background.style.top = `${this.topOffset}px`;
 
     for (const barPosition of Object.keys(
       this.bars
