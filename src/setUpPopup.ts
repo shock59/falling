@@ -19,69 +19,70 @@ export default function setUpPopup(boxManager: BoxManager) {
     "#changebg-popup-background"
   )!;
 
-  const popup = document.querySelector<HTMLDivElement>(
+  const addboxPopup = document.querySelector<HTMLDivElement>(
     "#addbox-popup-background > .popup"
   )!;
   const changebgPopup = document.querySelector<HTMLDivElement>(
     "#changebg-popup-background > .popup"
   )!;
 
-  popup.addEventListener("click", (event) => {
+  addboxPopup.addEventListener("click", (event) => {
     event.stopPropagation();
   });
   changebgPopup.addEventListener("click", (event) => {
     event.stopPropagation();
   });
 
-  const popupBoxTypeSelect =
+  const addboxTypeSelect =
     document.querySelector<HTMLSelectElement>("#box-type")!;
-  const popupBoxWidthInput =
+  const addboxWidthInput =
     document.querySelector<HTMLInputElement>("#box-width")!;
-  const popupBoxHeightInput =
+  const addboxHeightInput =
     document.querySelector<HTMLSelectElement>("#box-height")!;
-  const popupBoxGravityInput =
+  const addboxGravityInput =
     document.querySelector<HTMLSelectElement>("#box-gravity")!;
-  const colorSelect = document.querySelector<HTMLSelectElement>("#color")!;
-  const popupAddBoxButton =
+  const addboxColorSelect = document.querySelector<HTMLSelectElement>("#color")!;
+  const addBoxButton =
     document.querySelector<HTMLButtonElement>("#add-box")!;
-  const hexcodeOptions = document.querySelector<HTMLDivElement>(
+  
+  const addboxHexcodeOptions = document.querySelector<HTMLDivElement>(
     "#popupoptions-hexcode"
   )!;
 
   const updateHexcodeOptionsVisibility = () => {
-    if (colorSelect.value == "custom")
-      hexcodeOptions.classList.remove("hidden");
-    else hexcodeOptions.classList.add("hidden");
+    if (addboxColorSelect.value == "custom")
+      addboxHexcodeOptions.classList.remove("hidden");
+    else addboxHexcodeOptions.classList.add("hidden");
   };
 
-  popupBoxTypeSelect.addEventListener("change", () => {
-    for (const div of popup.querySelectorAll<HTMLDivElement>(".popupoptions")) {
-      if (div.id == `popupoptions-${popupBoxTypeSelect.value}`)
+  addboxTypeSelect.addEventListener("change", () => {
+    for (const div of addboxPopup.querySelectorAll<HTMLDivElement>(".popupoptions")) {
+      if (div.id == `popupoptions-${addboxTypeSelect.value}`)
         div.classList.remove("hidden");
       else div.classList.add("hidden");
     }
-    if (popupBoxTypeSelect.value == "basic") updateHexcodeOptionsVisibility();
-    else hexcodeOptions.classList.add("hidden");
+    if (addboxTypeSelect.value == "basic") updateHexcodeOptionsVisibility();
+    else addboxHexcodeOptions.classList.add("hidden");
   });
-  colorSelect.addEventListener("change", updateHexcodeOptionsVisibility);
+  addboxColorSelect.addEventListener("change", updateHexcodeOptionsVisibility);
 
-  popupAddBoxButton.addEventListener("click", () => {
+  addBoxButton.addEventListener("click", () => {
     let widget: Element | undefined;
 
-    switch (popupBoxTypeSelect.value) {
+    switch (addboxTypeSelect.value) {
       case "basic":
         boxManager.addBox(
-          Number(popupBoxWidthInput.value),
-          Number(popupBoxHeightInput.value),
+          Number(addboxWidthInput.value),
+          Number(addboxHeightInput.value),
           undefined,
           0,
-          Number(popupBoxGravityInput.value),
-          colorSelect.value == "custom"
+          Number(addboxGravityInput.value),
+          addboxColorSelect.value == "custom"
             ? `#${
-                hexcodeOptions.querySelector<HTMLInputElement>("#hex-code")!
+                addboxHexcodeOptions.querySelector<HTMLInputElement>("#hex-code")!
                   .value
               }`
-            : colorSelect.value
+            : addboxColorSelect.value
         );
         break;
 
@@ -133,11 +134,11 @@ export default function setUpPopup(boxManager: BoxManager) {
     }
     if (widget != undefined) {
       boxManager.addBox(
-        Number(popupBoxWidthInput.value),
-        Number(popupBoxHeightInput.value),
+        Number(addboxWidthInput.value),
+        Number(addboxHeightInput.value),
         undefined,
         0,
-        Number(popupBoxGravityInput.value),
+        Number(addboxGravityInput.value),
         "gray",
         [widget]
       );
