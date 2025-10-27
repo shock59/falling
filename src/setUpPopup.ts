@@ -11,6 +11,12 @@ export default function setUpPopup(boxManager: BoxManager) {
     popupBackground.addEventListener("click", () =>
       popupBackground.classList.add("hidden")
     );
+  
+  const hidePopups = () => {
+    for (const popupBackground of popupBackgrounds) {
+      popupBackground.classList.add("hidden");
+    }
+  }
 
   const addboxPopupBackground = document.querySelector<HTMLDivElement>(
     "#addbox-popup-background"
@@ -19,19 +25,18 @@ export default function setUpPopup(boxManager: BoxManager) {
     "#changebg-popup-background"
   )!;
 
-  const addboxPopup = document.querySelector<HTMLDivElement>(
-    "#addbox-popup-background > .popup"
-  )!;
+    const addboxPopup = document.querySelector<HTMLDivElement>(
+      "#addbox-popup-background > .popup"
+    )!;
   const changebgPopup = document.querySelector<HTMLDivElement>(
     "#changebg-popup-background > .popup"
   )!;
 
-  addboxPopup.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
-  changebgPopup.addEventListener("click", (event) => {
-    event.stopPropagation();
-  });
+  for (const popup of [addboxPopup, changebgPopup]) {
+    popup.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  }
 
   const addboxTypeSelect =
     document.querySelector<HTMLSelectElement>("#box-type")!;
@@ -160,19 +165,11 @@ export default function setUpPopup(boxManager: BoxManager) {
 
   document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
-      for (const popupBackground of popupBackgrounds) {
-        popupBackground.classList.add("hidden");
-      }
+      hidePopups()
       addboxPopupBackground.classList.remove("hidden");
     } else if (event.key == "b") {
-      for (const popupBackground of popupBackgrounds) {
-        popupBackground.classList.add("hidden");
-      }
+      hidePopups();
       changebgPopupBackground.classList.remove("hidden");
-    } else if (event.key == "Escape") {
-      for (const popupBackground of popupBackgrounds) {
-        popupBackground.classList.add("hidden");
-      }
-    }
+    } else if (event.key == "Escape") hidePopups();
   });
 }
