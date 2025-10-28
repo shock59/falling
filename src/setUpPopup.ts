@@ -164,12 +164,21 @@ export default function setUpPopup(boxManager: BoxManager) {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key == "Enter") {
+    if (event.key == "Escape") {
       hidePopups();
+      return;
+    }
+
+    for (const popupBackground of popupBackgrounds) {
+      if (!popupBackground.classList.contains("hidden")) {
+        return;
+      }
+    }
+
+    if (event.key == "Enter") {
       addboxPopupBackground.classList.remove("hidden");
     } else if (event.key == "b") {
-      hidePopups();
       changebgPopupBackground.classList.remove("hidden");
-    } else if (event.key == "Escape") hidePopups();
+    }
   });
 }
